@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Input</title>
+	<script type="text/javascript" src="../react-0.10.0/build/react.js"></script>
+</head>
+<body>
+<div id="container"></div>
+
+<script type="text/javascript">
+var TalkNotification = React.createClass({
+	getInitialState: function() {
+		return {response: null};
+	},
+	submitResponse: function(e) {
+		var response = this.refs.response.getDOMNode().value.trim();
+		if(response.length > 0) {
+			this.setState({response: response});
+		}
+		return false;
+	},
+	render: function() {
+		var content = [
+			React.DOM.p({key: 'text'}, 'Some notification...'),
+		];
+		if(this.state.response === null) {
+			content.push(React.DOM.form({key: 'response-form', onSubmit: this.submitResponse}, [
+				React.DOM.input({ref: 'response', key: 'response-input'})
+			]));
+		} else {
+			content.push(React.DOM.p({key: 'response'}, this.state.response));
+		}
+		return React.DOM.div({}, content);
+	}
+});
+var n = React.renderComponent(TalkNotification({}), document.getElementById('container'));
+setTimeout(function() {
+	console.log(n.setState({response: 'Got it!'}));
+}, 3000);
+</script>
+</body>
+</html>

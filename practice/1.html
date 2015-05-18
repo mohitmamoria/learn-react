@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>React 1</title>
+	<script type="text/javascript" src="../react-0.10.0/build/react.js"></script>
+</head>
+<body>
+<div id="container">
+	
+</div>
+<script type="text/javascript">
+var Greeter = React.createClass({
+	getInitialState: function() {
+		return {greeting: this.props.greeting, something: 1};
+	},
+	toggleGreeting: function(e) {
+		this.setState({greeting: this.state.greeting == 'Hello' ? 'Hey' : 'Hello'});
+	},
+	render: function() {
+		return React.DOM.h1({onClick: this.toggleGreeting}, this.state.greeting);
+	}
+});
+React.renderComponent(
+	Greeter({greeting: 'Hey'}),
+	document.getElementById('container')
+);
+</script>
+</body>
+</html>
